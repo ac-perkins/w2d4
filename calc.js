@@ -1,27 +1,76 @@
 
 // DEFINE YOUR VARIABLES HERE
 var total = 0;
-
+var figure = document.querySelector("figure");
+var currentNumber = '';
+var haveIStartedYet = false;
 
 // DEFINE YOUR FUNCTIONS HERE
 
 function handleButtonClick(element) {
     // You can use this to get the value of the button:
     // element.value
+
     if (Number(element.value) ) {
-            console.log(element);
-      } else if (element.value === "0") {
-        console.log (element);
+      // console.log('num');
+      figure.innerHTML = figure.innerHTML + element.value;
+       currentNumber = currentNumber + element.value;
+
+    } else if (element.value === "0") {
+        // console.log ('in 0');
+        figure.innerHTML = figure.innerHTML + element.value;
+    currentNumber = currentNumber + element.value;
       }
 
 
+    if (element.value === "+") {
+        console.log(currentNumber, total, figure.innerHTML, element.value);
+        total = addToTotal(Number(currentNumber), total);
+        figure.innerHTML = figure.innerHTML + "+" ;
+        console.log(total);
+        currentNumber = "";
+      }
+
+    // if (element.value === "-") {
+    //     console.log(currentNumber, total, figure.innerHTML, element.value);
+    //     total = subtractFromTotal(Number(currentNumber), total);
+    //     figure.innerHTML = figure.innerHTML + "-" ;
+    //     console.log(total);
+    //     currentNumber = "";
+    //   }
+
+    if (element.value === "x") {
+        console.log(currentNumber, total, figure.innerHTML, element.value);
+        // total = currentNumber;
+        if (!haveIStartedYet) {
+          total = (Number(currentNumber));
+          haveIStartedYet = true;
+        } else {
+          total = multiplyWithTotal(Number(currentNumber),total);
+        }
+        figure.innerHTML = figure.innerHTML + "x" ;
+        console.log(total);
+        currentNumber = "";
+      }
+
+    // if (element.value === "=") {
+    //   if (Number(currentNumber) && Number(total)) {
+    //       addToTotal(Number(currentNumber), total);
+    //       figure.innerHTML = total;
+    //     }
+        // console.log(addToTotal(total, currentNumber));
+      // }
+      if (element.value === "clear") {
+        figure.innerHTML = '';
+      }
+// console.log(currentNumber);
     }
-function addToTotal(total, x){
+function addToTotal(x, total){
   return total + x;
 }
 
-function subtractFromTotal(total,x) {
-  return total - x;
+function subtractFromTotal(x, y) {
+  return x - y;
 }
 
 function multiplyWithTotal(total,x) {
