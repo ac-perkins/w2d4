@@ -1,6 +1,6 @@
 
 // DEFINE YOUR VARIABLES HERE
-
+var total = 0;
 
 
 // DEFINE YOUR FUNCTIONS HERE
@@ -8,10 +8,29 @@
 function handleButtonClick(element) {
     // You can use this to get the value of the button:
     // element.value
+    if (Number(element.value) ) {
+            console.log(element);
+      } else if (element.value === "0") {
+        console.log (element);
+      }
 
+
+    }
+function addToTotal(total, x){
+  return total + x;
 }
 
+function subtractFromTotal(total,x) {
+  return total - x;
+}
 
+function multiplyWithTotal(total,x) {
+  return total * x;
+}
+
+function divideByTotal (total,x) {
+  return total / x;
+}
 
 /**
  * This event handler will fire for ALL button clicks. You need to decide
