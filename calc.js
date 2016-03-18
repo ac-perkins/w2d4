@@ -15,12 +15,13 @@ function handleButtonClick(element) {
       // console.log('num');
       figure.innerHTML = figure.innerHTML + element.value;
        currentNumber = currentNumber + element.value;
-
-    } else if (element.value === "0") {
+       console.log(total);
+    }
+    else if (element.value === "0") {
         // console.log ('in 0');
         figure.innerHTML = figure.innerHTML + element.value;
     currentNumber = currentNumber + element.value;
-      }
+    }
 
 
     if (element.value === "+") {
@@ -29,39 +30,83 @@ function handleButtonClick(element) {
         figure.innerHTML = figure.innerHTML + "+" ;
         console.log(total);
         currentNumber = "";
-      }
+    }
 
-    // if (element.value === "-") {
-    //     console.log(currentNumber, total, figure.innerHTML, element.value);
-    //     total = subtractFromTotal(Number(currentNumber), total);
-    //     figure.innerHTML = figure.innerHTML + "-" ;
-    //     console.log(total);
-    //     currentNumber = "";
-    //   }
-
-    if (element.value === "x") {
+    if (element.value === "-") {
         console.log(currentNumber, total, figure.innerHTML, element.value);
-        // total = currentNumber;
         if (!haveIStartedYet) {
           total = (Number(currentNumber));
           haveIStartedYet = true;
         } else {
-          total = multiplyWithTotal(Number(currentNumber),total);
+          total = subtractFromTotal(Number(currentNumber), total);
+        }
+        figure.innerHTML = figure.innerHTML + "-" ;
+        console.log(total);
+        currentNumber = "";
+    }
+
+    if (element.value === "x") {
+        // console.log(currentNumber, total, figure.innerHTML, element.value);
+        if (!haveIStartedYet) {
+          total = (Number(currentNumber));
+          haveIStartedYet = true;
+          console.log("if");
+        } else {
+          total = multiplyWithTotal(Number(currentNumber), total);
+          console.log("else");
         }
         figure.innerHTML = figure.innerHTML + "x" ;
         console.log(total);
         currentNumber = "";
+    }
+
+    if (element.value === "/") {
+        console.log(currentNumber, total, figure.innerHTML, element.value);
+        if (!haveIStartedYet) {
+          total = (Number(currentNumber));
+          haveIStartedYet = true;
+        } else {
+          total = divideByTotal(Number(currentNumber), total);
+        }
+        figure.innerHTML = figure.innerHTML + "/" ;
+        console.log(total);
+        currentNumber = "";
       }
 
-    // if (element.value === "=") {
-    //   if (Number(currentNumber) && Number(total)) {
-    //       addToTotal(Number(currentNumber), total);
-    //       figure.innerHTML = total;
-    //     }
-        // console.log(addToTotal(total, currentNumber));
-      // }
-      if (element.value === "clear") {
+    if (element.value === ".") {
+        figure.innerHTML = figure.innerHTML + '.';
+        // currentNumber = figure.innerHTML + '.';
+    }
+
+    if (element.value === "=") {
+      if (figure.innerHTML.indexOf("+") != -1) {
+        total = addToTotal(Number(currentNumber), total);
+        figure.innerHTML = total;
+        currentNumber = total;
+      }
+      else if (figure.innerHTML.indexOf("-") != -1) {
+        total = subtractFromTotal(Number(currentNumber), total);
+        figure.innerHTML = total;
+        currentNumber = total;
+      }
+      else if (figure.innerHTML.indexOf("x") != -1) {
+        total = multiplyWithTotal(Number(currentNumber), total);
+        figure.innerHTML = total;
+        currentNumber = total;
+      }
+      else if (figure.innerHTML.indexOf("/") != -1) {
+        total = divideByTotal(Number(currentNumber), total);
+        figure.innerHTML = total;
+        currentNumber = total;
+      }
+      console.log(total);
+    }
+
+    if (element.value === "clear") {
         figure.innerHTML = '';
+        currentNumber = '';
+        total = 0;
+        haveIStartedYet = false;
       }
 // console.log(currentNumber);
     }
@@ -69,15 +114,15 @@ function addToTotal(x, total){
   return total + x;
 }
 
-function subtractFromTotal(x, y) {
-  return x - y;
+function subtractFromTotal(x, total) {
+  return total - x;
 }
 
-function multiplyWithTotal(total,x) {
-  return total * x;
+function multiplyWithTotal(x, total) {
+  return x * total;
 }
 
-function divideByTotal (total,x) {
+function divideByTotal (x, total) {
   return total / x;
 }
 
