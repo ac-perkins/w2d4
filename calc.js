@@ -15,7 +15,7 @@ function handleButtonClick(element) {
       // console.log('num');
       figure.innerHTML = figure.innerHTML + element.value;
        currentNumber = currentNumber + element.value;
-       console.log(total);
+      //  console.log(total);
     }
     else if (element.value === "0") {
         // console.log ('in 0');
@@ -51,7 +51,8 @@ function handleButtonClick(element) {
           total = (Number(currentNumber));
           haveIStartedYet = true;
           console.log("if");
-        } else {
+        }
+        else {
           total = multiplyWithTotal(Number(currentNumber), total);
           console.log("else");
         }
@@ -75,29 +76,31 @@ function handleButtonClick(element) {
 
     if (element.value === ".") {
         figure.innerHTML = figure.innerHTML + '.';
-        // currentNumber = figure.innerHTML + '.';
+        currentNumber = currentNumber + '.';
     }
 
     if (element.value === "=") {
       if (figure.innerHTML.indexOf("+") != -1) {
         total = addToTotal(Number(currentNumber), total);
         figure.innerHTML = total;
-        currentNumber = total;
+        currentNumber = '';
       }
       else if (figure.innerHTML.indexOf("-") != -1) {
         total = subtractFromTotal(Number(currentNumber), total);
         figure.innerHTML = total;
-        currentNumber = total;
+        currentNumber = '';
       }
       else if (figure.innerHTML.indexOf("x") != -1) {
         total = multiplyWithTotal(Number(currentNumber), total);
         figure.innerHTML = total;
         currentNumber = total;
+        haveIStartedYet = false;
       }
       else if (figure.innerHTML.indexOf("/") != -1) {
         total = divideByTotal(Number(currentNumber), total);
         figure.innerHTML = total;
         currentNumber = total;
+        haveIStartedYet = false;
       }
       console.log(total);
     }
@@ -111,7 +114,7 @@ function handleButtonClick(element) {
 // console.log(currentNumber);
     }
 function addToTotal(x, total){
-  return total + x;
+  return total + Number(x);
 }
 
 function subtractFromTotal(x, total) {
@@ -123,7 +126,12 @@ function multiplyWithTotal(x, total) {
 }
 
 function divideByTotal (x, total) {
-  return total / x;
+  if (total / x === Infinity) {
+    return 0;
+  }
+  else {
+    return total / x;
+  }
 }
 
 /**
